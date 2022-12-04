@@ -19,7 +19,7 @@ export default function ProfilePage({navigation}) {
   //For user name at top
   const [userName, setUserName] = useState('');
 
-  //Navigates to Slash screen when logout
+  //Navigates to Splash screen when logout
   const handleLogOut = () => {
     auth.signOut()
     .then(() => {
@@ -46,7 +46,6 @@ export default function ProfilePage({navigation}) {
     }
   }
 
-  //<Text> {auth.currentUser?.email}</Text>
   return (
     <View style={styles.container}>
       <View style={styles.titleWrapper}>
