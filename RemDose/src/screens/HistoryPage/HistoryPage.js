@@ -79,64 +79,6 @@ export default function HistoryPage({navigation}) {
   //count for the progress bar
   const[count] = useState((pills.filter(pill => pill.Done === true).length / pills.length) * 100);
 
-  
-  
-  /*
-  //Calendar date formate
-  const  d = new Date();
-  const  ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-  const  mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
-  const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-  const t = `${ye}-${mo}-${da}`;
-  
-  //CALENDAR
-  const [ savedDates, setsavedDates] =  useState([]);
-  const [selected, setSelected] = useState(t);
-  const [selected2, setSelected2] = useState('2022-07-05');
-
-  //Marks on calendar
-  const marked = useMemo(() => {
-      if(count === 100){
-          return {
-              [selected]: {
-                selected: true,
-                disableTouchEvent: true,
-                selectedColor: '#45B3CB',
-                selectedTextColor: 'white'
-              },
-            };   
-      }else if(count < 100 && count > 0){
-          return {
-              [selected]: {
-                selected: true,
-                disableTouchEvent: true,
-                selectedColor: '#F4B24F',
-                selectedTextColor: 'white'
-              },
-              [selected2]: {
-                  selected: true,
-                  disableTouchEvent: true,
-                  selectedColor: '#F4B24F',
-                  selectedTextColor: 'white'
-                },
-            };  
-      }
-    }, [selected] [selected2]);
-        <View style={styles.monthlyContainer}>
-                <Text style={styles.title}> MONTHLY </Text>
-                <CalendarList
-                    pastScrollRange={50}
-                    futureScrollRange={50}
-                    scrollEnabled={true}
-                    showScrollIndicator={true}
-                    style={{
-                        height: 300,
-                    }}
-                    markedDates={marked}
-                />
-        </View>
-    */
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
