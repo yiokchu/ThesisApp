@@ -54,7 +54,6 @@ export default function RemindersPage({navigation}) {
   const display = (t) => {
       const p =  JSON.stringify(t);
       const words = p.split(' ');
-      //toString().
       const count = words.length;
       const length = 5;
       const elements = [];
@@ -129,7 +128,6 @@ export default function RemindersPage({navigation}) {
       };
 
       retrieveDate()
-      //console.log("retrieved Date " + retrieveDate())
 
       if (savedDate == currentDate){
         console.log("Same day: !Reset");
@@ -153,8 +151,6 @@ export default function RemindersPage({navigation}) {
       newPills[index].Done = newValue;
       something = newPills;
       AsyncStorage.setItem("Pills", something.toString())
-      //AsyncStorage.setItem("Pills", JSON.stringify(newPills, newPills))
-      //AsyncStorage.setItem("Pills", JSON.stringify(newPills, pills))
       .then(() => {
         dispatch(setPills(newPills));
         Alert.alert('Success', 'Checked state changed');
@@ -162,22 +158,6 @@ export default function RemindersPage({navigation}) {
     .catch(err => console.log("problem" + err))
     }
   }
-
-  /*
-  const getCircularReplacer = () => {
-    const seen = new WeakSet();
-    return (key, value) => {
-      if (typeof value === "object" && value !== null) {
-        if (seen.has(value)) {
-          return;
-        }
-        seen.add(value);
-      }
-      return value;
-    };
-  };*/
- 
-  //<Text style={styles.timeSubtitle}> {display(item.Time)}</Text>
 
   return (
     <SafeAreaView style={styles.container}>
@@ -219,19 +199,7 @@ export default function RemindersPage({navigation}) {
                                     </View>
                                 </TouchableOpacity>
                             )}
-                            /*
-                            <CheckBox
-                                            checked={item.Done}
-                                            checkedColor={'#45B3CB'}
-                                        />
-                            */
-                            //keyExtractor={item => item.ID}
-                            //keyExtractor={item => item.id}
-                            //keyExtractor={(item,index) => item.Name}
                             keyExtractor={(item, index) => index.toString()}
-                            //keyExtractor={item => item.key}
-                            //keyExtractor={(item) => item.Name}
-                            //keyExtractor={(item, index) => item + index.toString()}
                         />
                     
                 </View>
