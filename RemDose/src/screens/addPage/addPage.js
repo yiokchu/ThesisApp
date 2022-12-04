@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image, SafeAreaView, Modal, TouchableOpacity, T
 import { colors } from '../../config/colors';
 import React, {useEffect, useState, useRef} from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
-//import {Picker} from '@react-native-picker/picker';
 import { useSelector, useDispatch } from 'react-redux';
 import {setPills , setPillID} from '../../redux/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -11,8 +10,6 @@ import {CheckBox} from 'react-native-elements';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import moment from 'moment';
-//import { setPillID } from '../../redux/actions';
-//import uuid from 'react-native-uuid';
 
 //Supressing this warning because it only appears if you are not login with your Expo account
 LogBox.ignoreLogs(["Fetching", "Expo", "token"])
@@ -69,19 +66,12 @@ async function schedulePushNotification() {
           body: 'It is time to take your meds!',
       },
       trigger: { 
-          //seconds: 2,
-          //minute: 1,
           type: 'daily',
           repeat: true,
-          //hour: 17,
-          //minute: 15,
           hour: th,
           minute: tm,
       },
   });
-  //Notifications.removeAllDeliveredNotifications(identifier);
-  //Notifications.cancelLocalNotifications(identifier);
-  //await Notifications.cancelScheduledNotificationAsync(identifier);
 }
 
 //Register the app to get a push notification token
@@ -146,12 +136,7 @@ export default function AddPage({navigation}) {
   const[colorS, setColorS] = useState('gray');
   const[showImageModal, setImageModal] = useState(false);
   const[image, setImage] = useState('Image1');
-  //const [selectedNotification, setSelectedNotification] = useState("Select an option");
   const [time, setTime] = useState("");
-  //const [displaytime, setDisplayTime] = useState("");
-  //const[pillKey, setPillKey] = useState('');
-
-  //setPillKey = uuid.v4();
 
   const {pills, pillID} = useSelector(state => state.pillReducer);
   const dispatch = useDispatch();
@@ -160,8 +145,6 @@ export default function AddPage({navigation}) {
   useEffect(() => {
        getPill();
   }, [])
-
-
 
   //gets the pill information
   const getPill = () => {
@@ -173,10 +156,7 @@ export default function AddPage({navigation}) {
            setDone(Pill.Done);
            setColorS(Pill.ColorS);
            setImage(Pill.Image);
-           //setSelectedNotification(Pill.SelectedNotification);
            setTime(Pill.Time);
-           //setDisplayTime(Pill.DisplayTime)
-           //setPillKey(Pill.Key);
        }
   }
 
@@ -204,12 +184,9 @@ export default function AddPage({navigation}) {
                     Done: done,
                     ColorS: colorS,
                     Image: image,
-                    //SelectedNotification: selectedNotification,
                     Time : time,
-                    //DisplayTime : displaytime,
                 }
                 const index = pills.findIndex(pill => pill.ID === pillID);
-                //let newPills = [...pills, Pill];
                 let newPills = [];
                 if (index > -1) {
                     newPills = [...pills];
@@ -245,107 +222,19 @@ export default function AddPage({navigation}) {
         let tempDate = new Date(currentDate);
         let fTime = 'Hours: ' + tempDate.getHours() + ' | Minutes: ' + tempDate.getMinutes();
         let fTime2 = tempDate.getHours() + ': ' + tempDate.getMinutes();
-        //let cHours = (tempDate.getHours() + 24) % 12 || 12
-        //let fdisplayTime = tempDate.getMinutes();
-        //setDisplayTime(fdisplayTime)
         setText(fTime)
         setTime(fTime)
         console.log( fTime )
         th = tempDate.getHours();
         tm = tempDate.getMinutes();
-        //tm = (tempDate.getMinutes() - parseInt(selectedNotification));
         console.log ( "TH " + th)
         console.log ( "Time:" + th + " " + tm)
-        //s = selectedNotification;
-        //console.log (selectedNotification)
    }
 
    const showMode = (currentMode) => {
        setShow(true);
        setMode(currentMode);
    }
-
-   //Checkbox
-   //At the end of the day the checkbox resets to false
-   /*
-   checkDate = async () => {
-    let currentDateString = moment("12-25-1995", "MM-DD-YYYY");
-
-    let savedDateString = await AsyncStorage.getItem('storedDate');
-    const date = new Date(savedDateString);
-    const momentDate = moment(date.toISOString());
-
-    if (momentDate) {
-
-      if (moment(currentDateString).isAfter(momentDate)) {
-        setDone(false)
-        console.log("End of the day: Reset checkbox");
-        try {
-          await AsyncStorage.setItem('storedDate', currentDateString)
-        } catch (err) {
-        }
-      } else {
-
-      }
-    } else {
-        try {
-          await AsyncStorage.setItem('storedDate', currentDateString)
-        } catch (err) {
-        }
-    }
-  }*/
-
-  /*
-  const [currentDate, setCurrentDate] = useState('');
-  //const [savedDate, setsavedDate] = useState('10/10/2022');
-  const [savedDate, setsavedDate] = useState('');
-
-   useEffect(() => {
-        let today = new Date();
-        let a = today.getHours();
-        let b = today.getMinutes();
-        console.log(today)
-        console.log(a)
-        console.log(b)
-
-        let current = new Date().getDate();
-        var month = new Date().getMonth() + 1;
-        var year = new Date().getFullYear();
-        let CDate = current + "/" + month + "/" + year + " ";
-        setCurrentDate(
-          //current + '/' + month + '/' + year
-          CDate
-        )
-        console.log("current " + CDate)
-       
-
-        const retrieveDate = async () => {
-          const value = await AsyncStorage.getItem('Sdate');
-          let d = value + " ";
-          setsavedDate(d)
-          console.log("saved date " + savedDate)
-          console.log("VAl " + value)
-        };
-        
-        retrieveDate()
-
-        if (savedDate === currentDate){
-          console.log("Same day: !Reset");
-          console.log("Compare " + savedDate + 'and ' + currentDate);
-        } else{
-          setDone(false)
-          AsyncStorage.setItem('Sdate', currentDate);
-          console.log("End of the day: Reset checkbox");
-        }
-
-
-        /*
-        if(a === 0 && b === 0){
-            setDone(false)
-            console.log("End of the day: Reset checkbox");
-        }
-    }, []);*/
-
 
   //Notifications
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -369,33 +258,10 @@ export default function AddPage({navigation}) {
       Notifications.removeNotificationSubscription(responseListener.current);
       };
   }, []);
-
-  /*
-  <Text style={styles.subtitle}> NOTIFICATION </Text>
-                  <Picker
-                      style={styles.pick}
-                      selectedValue={selectedNotification}
-                      onValueChange={(itemValue) => setSelectedNotification(itemValue)}
-                      >
-                      <Picker.Item label="Select an option" value=""/>
-                      <Picker.Item label="1 minute before" value="1" />
-                      <Picker.Item label="5 minutes before" value="5"/>
-                      <Picker.Item label="10 minutes before" value="10"/>
-                  </Picker>
-  */
  
   const retrieveDone = async () => {
     const value = await AsyncStorage.getItem('Sdone');
   };         
-  /*
-  <CheckBox
-              checked={done}
-              checkedColor={'#45B3CB'}
-              onPress={() => {
-                  setDone(!done)
-              }}
-          />
-  */      
 
   return (
     <SafeAreaView style={styles.container}>
