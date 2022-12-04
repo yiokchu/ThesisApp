@@ -38,16 +38,6 @@ export default function MyPillsPage({navigation}) {
             dispatch(setPills(filteredPills));
         }).catch(err => console.log(err))
     }
-    //removePushNotification();
-    /*
-    async function removePushNotification() {
-      let token = (await Notifications.getExpoPushTokenAsync()).data;
-      //Notifications.removeDeliveredNotificationAsync(token);
-      //Notification.cancelLocalNotifications(token);
-      await Notifications.cancelScheduledNotificationAsync(identifier);
-      console.log("Notification Removed")
-      token.remove();
-    }*/
     
   return (
     <SafeAreaView style={styles.container}>
